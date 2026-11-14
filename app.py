@@ -3,6 +3,9 @@ from flask_cors import CORS
 from youtube_transcript_api import YouTubeTranscriptApi
 import os
 import re
+import json
+import html
+import xml.etree.ElementTree as ET
 import requests
 
 app = Flask(__name__, static_folder='.')
@@ -13,6 +16,11 @@ ANGKA_MAP = {
     '6': 'enam', '7': 'tujuh', '8': 'delapan', '9': 'sembilan', '10': 'sepuluh',
     '11': 'sebelas', '12': 'dua belas', '15': 'lima belas', '20': 'dua puluh',
     '30': 'tiga puluh', '50': 'lima puluh', '100': 'seratus', '1000': 'seribu'
+}
+
+BROWSER_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "Accept-Language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"
 }
 
 
@@ -35,10 +43,116 @@ def extract_video_id(url: str) -> str:
     return ""
 
 
+def parse_caption_xml(xml_text: str):
+    """Mengubah XML subtitle YouTube menjadi teks bersih dan daftar timestamp."""
+    segments = []
+    timestamped = []
+    root = ET.fromstring(xml_text)
+    for elem in root.findall('.//text'):
+        raw_txt = "".join(elem.itertext())
+        txt = html.unescape(re.sub(r'\s+', ' ', raw_txt)).strip()
+        if not txt:
+            continue
+        start_val = float(elem.attrib.get('start', 0.0) or 0.0)
+        sec = int(start_val)
+        mm, ss = divmod(sec, 60)
+        segments.append(txt)
+        timestamped.append(f"[{mm:02d}:{ss:02d}] {txt}")
+    return " ".join(segments), "\n".join(timestamped)
+
+
+def fetch_via_innertube_android(video_id: str):
+    """Strategi cadangan menggunakan API Innertube Android YouTube (sering lolos blokir IP cloud Vercel)."""
+    payload = {
+        "context": {
+            "client": {
+                "clientName": "ANDROID",
+                "clientVersion": "19.09.37",
+                "androidSdkVersion": 30,
+                "hl": "id",
+                "gl": "ID"
+            }
+        },
+        "videoId": video_id
+    }
+    resp = requests.post(
+        "https://www.youtube.com/youtubei/v1/player",
+        json=payload,
+        headers={
+            "Content-Type": "application/json",
+            "User-Agent": "com.google.android.youtube/19.09.37 (Linux; U; Android 11) gzip"
+        },
+        timeout=12
+    )
+    if resp.status_code != 200:
+        return None
+    data = resp.json()
+    tracks = data.get("captions", {}).get("playerCaptionsTracklistRenderer", {}).get("captionTracks", [])
+    if not tracks:
+        return None
+
+    chosen = None
+    for lang_prefix in ['id', 'en']:
+        for tr in tracks:
+            if str(tr.get("languageCode", "")).startswith(lang_prefix):
+                chosen = tr
+                break
+        if chosen:
+            break
+    if not chosen:
+        chosen = tracks[0]
+
+    base_url = chosen.get("baseUrl", "")
+    if not base_url:
+        return None
+
+    sub_resp = requests.get(base_url, headers=BROWSER_HEADERS, timeout=12)
+    if sub_resp.status_code == 200 and "<text" in sub_resp.text:
+        full_txt, ts_txt = parse_caption_xml(sub_resp.text)
+        if full_txt:
+            return full_txt, ts_txt, chosen.get("languageCode", "auto")
+    return None
+
+
+def fetch_via_watch_page(video_id: str):
+    """Strategi cadangan membaca captionTracks langsung dari halaman watch YouTube."""
+    resp = requests.get(f"https://www.youtube.com/watch?v={video_id}", headers=BROWSER_HEADERS, timeout=12)
+    if resp.status_code != 200:
+        return None
+    match = re.search(r'"captionTracks":(\[.*?\])', resp.text)
+    if not match:
+        return None
+    tracks = json.loads(match.group(1))
+    if not tracks:
+        return None
+
+    chosen = None
+    for lang_prefix in ['id', 'en']:
+        for tr in tracks:
+            if str(tr.get("languageCode", "")).startswith(lang_prefix):
+                chosen = tr
+                break
+        if chosen:
+            break
+    if not chosen:
+        chosen = tracks[0]
+
+    base_url = chosen.get("baseUrl", "").replace("\\u0026", "&")
+    if not base_url:
+        return None
+
+    sub_resp = requests.get(base_url, headers=BROWSER_HEADERS, timeout=12)
+    if sub_resp.status_code == 200 and "<text" in sub_resp.text:
+        full_txt, ts_txt = parse_caption_xml(sub_resp.text)
+        if full_txt:
+            return full_txt, ts_txt, chosen.get("languageCode", "auto")
+    return None
+
+
 def fetch_youtube_transcript(video_id: str):
     """
-    Kompatibel dengan youtube-transcript-api versi lama (0.6.x) maupun versi baru (1.0.x+).
-    Mengembalikan (teks_penuh, teks_timestamp, kode_bahasa).
+    Penyedot transkrip 3 lapis (YouTubeTranscriptApi -> Innertube Android -> Watch Page)
+    agar tetap sukses di server cloud Vercel maupun lokal.
     """
     preferred_langs = ['id', 'en', 'en-US', 'en-GB']
     segments = []
@@ -55,7 +169,7 @@ def fetch_youtube_transcript(video_id: str):
             mm, ss = divmod(sec, 60)
             timestamped.append(f"[{mm:02d}:{ss:02d}] {txt}")
 
-    # Strategi 1: API Baru (youtube-transcript-api >= 1.0.0)
+    # Lapis 1A: YouTubeTranscriptApi versi baru (>= 1.0.0)
     try:
         ytt_api = YouTubeTranscriptApi()
         if hasattr(ytt_api, 'list'):
@@ -81,35 +195,55 @@ def fetch_youtube_transcript(video_id: str):
     except Exception:
         pass
 
-    # Strategi 2: API Lama (youtube-transcript-api <= 0.6.x)
-    if hasattr(YouTubeTranscriptApi, 'list_transcripts'):
-        transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
-        transcript_obj = None
-        try:
-            transcript_obj = transcript_list.find_transcript(preferred_langs)
-        except Exception:
-            for t in transcript_list:
-                transcript_obj = t
-                break
-        if transcript_obj is not None:
-            detected_lang = getattr(transcript_obj, 'language_code', 'auto')
-            for item in transcript_obj.fetch():
+    # Lapis 1B: YouTubeTranscriptApi versi lama (<= 0.6.x)
+    try:
+        if hasattr(YouTubeTranscriptApi, 'list_transcripts'):
+            transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+            transcript_obj = None
+            try:
+                transcript_obj = transcript_list.find_transcript(preferred_langs)
+            except Exception:
+                for t in transcript_list:
+                    transcript_obj = t
+                    break
+            if transcript_obj is not None:
+                detected_lang = getattr(transcript_obj, 'language_code', 'auto')
+                for item in transcript_obj.fetch():
+                    append_seg(item)
+                if segments:
+                    return " ".join(segments), "\n".join(timestamped), detected_lang
+
+        if hasattr(YouTubeTranscriptApi, 'get_transcript'):
+            for item in YouTubeTranscriptApi.get_transcript(video_id, languages=preferred_langs):
                 append_seg(item)
-            return " ".join(segments), "\n".join(timestamped), detected_lang
+            if segments:
+                return " ".join(segments), "\n".join(timestamped), 'auto'
+    except Exception:
+        pass
 
-    if hasattr(YouTubeTranscriptApi, 'get_transcript'):
-        for item in YouTubeTranscriptApi.get_transcript(video_id, languages=preferred_langs):
-            append_seg(item)
-        return " ".join(segments), "\n".join(timestamped), 'auto'
+    # Lapis 2: Innertube Android API (sering tembus di server cloud Vercel)
+    try:
+        res_android = fetch_via_innertube_android(video_id)
+        if res_android:
+            return res_android
+    except Exception:
+        pass
 
-    raise RuntimeError("Tidak dapat menemukan subtitle/CC pada video YouTube ini.")
+    # Lapis 3: Direct Watch Page Scraper
+    try:
+        res_watch = fetch_via_watch_page(video_id)
+        if res_watch:
+            return res_watch
+    except Exception:
+        pass
+
+    raise RuntimeError("Video ini tidak memiliki Subtitle/CC publik, atau YouTube membatasi akses otomatis dari server cloud.")
 
 
 def translate_to_indonesian_free(text: str) -> str:
     """Menerjemahkan transkrip panjang tanpa batas ke Bahasa Indonesia secara gratis per bagian kalimat."""
     if not text:
         return ""
-    # Pecah per ~1.800 karakter pada batas kalimat agar transkrip sepanjang apa pun tidak terpotong
     sentences = re.split(r'(?<=[.!?])\s+', text)
     chunks = []
     current = ""
@@ -174,7 +308,7 @@ def polish_pita_cerita_style(text: str) -> str:
     s = re.sub(r'\b(1|2|3|4|5|6|7|8|9|10|11|12|15|20|30|50|100|1000)\b', replace_num, s)
 
     if s:
-        s = s[0].upper() + s[1:]
+        s = s[0].upper() + s.slice(1) if hasattr(s, 'slice') else s[0].upper() + s[1:]
         if s[-1] not in '.!?':
             s += '.'
 
@@ -190,13 +324,11 @@ def generate_pcs_draft_with_gemini(raw_text: str, api_key: str) -> str:
         "Kamu adalah penulis naskah senior untuk kanal YouTube 'Pita Cerita Sinema'. "
         "Terjemahkan (jika masih bahasa asing) dan tulis ulang transkrip berikut menjadi naskah AI Voice-Over Bahasa Indonesia "
         "dengan aturan wajib:\n"
-        "1. JANGAN tambahkan kalimat hook basa-basi di luar cerita. Langsung buka kalimat pertama dengan AKSI KONKRET dari adegan pertama "
-        "(contoh: 'Begitu pria ini melemparkan chipnya...', 'Pertarungan sengit antara kedua anjing ini...', 'Di stasiun bawah tanah ini...').\n"
-        "2. Format WAJIB SATU PARAGRAF PENUH MENGALIR (single-paragraph layout) tanpa enter/baris baru sama sekali dan TANPA BATAS KATA/KARAKTER (jangan memotong isi cerita).\n"
+        "1. JANGAN tambahkan kalimat hook basa-basi di luar cerita. Langsung buka kalimat pertama dengan AKSI KONKRET dari adegan pertama.\n"
+        "2. Format WAJIB SATU PARAGRAF PENUH MENGALIR tanpa enter/baris baru sama sekali dan TANPA BATAS KATA/KARAKTER.\n"
         "3. Gunakan sudut pandang orang ketiga (POV 3) yang sinematik dan visual ('pria ini', 'gadis itu', 'sang ayah', 'ia', 'mereka').\n"
-        "4. Hubungkan antar-adegan dengan konjungsi sebab-akibat yang rapat ('namun karena...', 'tepat saat...', 'sehingga ia...', 'membuatnya...', 'hingga akhirnya...') "
-        "agar pembacaan AI Voice-Over mengalir cepat tanpa jeda mati.\n"
-        "5. Tulis angka dalam bentuk kata terbilang bahasa Indonesia (misal 'dua belas', 'lima puluh')."
+        "4. Hubungkan antar-adegan dengan konjungsi sebab-akibat yang rapat ('namun karena...', 'tepat saat...', 'sehingga ia...', 'membuatnya...', 'hingga akhirnya...').\n"
+        "5. Tulis angka dalam bentuk kata terbilang bahasa Indonesia."
     )
 
     endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
@@ -272,7 +404,7 @@ def extract_transcript():
         return jsonify({
             "status": "error",
             "video_id": video_id,
-            "message": f"Gagal mengambil subtitle dari YouTube ({str(e)}). Pastikan video memiliki CC/Subtitle aktif."
+            "message": str(e)
         }), 500
 
 

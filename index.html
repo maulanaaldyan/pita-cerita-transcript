@@ -1325,6 +1325,7 @@
                 const metaPromise = fetchVideoMetadataOnline(videoId);
                 let extractedData = null;
 
+                let serverErrorMsg = '';
                 if (window.location.protocol.indexOf('http') === 0 && (customEndpoint.indexOf('/') === 0 || customEndpoint.indexOf('https://') === 0)) {
                     try {
                         const response = await fetch(customEndpoint, {
@@ -1344,10 +1345,19 @@
                                     pcs_draft: json.pcs_draft || '',
                                     language: json.language || 'auto'
                                 };
+                            } else if (json && json.message) {
+                                serverErrorMsg = json.message;
+                            }
+                        } else {
+                            try {
+                                const errJson = await response.json();
+                                serverErrorMsg = (errJson && errJson.message) ? errJson.message : ('HTTP ' + response.status);
+                            } catch (e2) {
+                                serverErrorMsg = 'HTTP ' + response.status + ' (Route /api/extract belum aktif di vercel.json)';
                             }
                         }
                     } catch (err) {
-                        // Lanjut ke ekstraktor cloud browser
+                        serverErrorMsg = 'Gagal menghubungi server API.';
                     }
                 }
 
@@ -1389,12 +1399,12 @@
                     switchTab('pcs');
                     showToast('✅ Transkrip berhasil disedot & diubah ke gaya Pita Cerita Sinema!');
                 } else {
-                    document.getElementById('videoSub').textContent = videoAuthor + ' • Menunggu Deploy Server / Input Teks';
+                    document.getElementById('videoSub').textContent = videoAuthor + ' • ' + (serverErrorMsg || 'Subtitle/CC Tidak Tersedia');
                     rawBox.value = '';
-                    rawBox.placeholder = 'ℹ️ Video "' + videoTitle + '" ditemukan! Agar penyedot otomatis YouTube jalan 24 jam untuk semua video, deploy file server ke Vercel/Render (klik tombol 📥 Unduh File Server & Panduan 24 Jam di kanan atas).\n\nSambil menunggu deploy, kamu bisa langsung tempel (paste) teks transkrip bahasa Inggris/Indonesia sepanjang apa pun di kotak ini lalu klik tombol "✨ Rapikan Teks di Kotak Asli ke Draft SOP"!';
+                    rawBox.placeholder = 'ℹ️ Video "' + videoTitle + '" ditemukan, namun subtitle tidak bisa disedot otomatis.\n\nPenyebab: ' + (serverErrorMsg || 'Video ini belum mengaktifkan CC/Subtitle publik di YouTube.') + '\n\nAlternatif cepat: Jika kamu sudah punya teks transkrip/ringkasannya, tempel langsung di kotak ini lalu klik tombol "✨ Rapikan Teks di Kotak Asli ke Draft SOP"!';
                     pcsBox.value = 'Menunggu teks di kotak Transcript Asli...';
                     timeBox.value = 'Menunggu teks...';
-                    showToast('ℹ️ Tempel teks di kotak Asli atau aktifkan server Vercel 24 jam.');
+                    showToast('⚠️ ' + (serverErrorMsg || 'Subtitle tidak tersedia untuk video ini.'));
                 }
 
                 btn.disabled = false;
@@ -1619,7 +1629,7 @@
                     downloadTextFile('requirements.txt', 'flask>=3.0.0\nflask-cors>=4.0.0\nyoutube-transcript-api>=0.6.2\nrequests>=2.31.0\ngunicorn>=21.2.0\n');
                 });
                 document.getElementById('btnDlVercel').addEventListener('click', function () {
-                    downloadTextFile('vercel.json', '{\n  "version": 2,\n  "rewrites": [\n    { "source": "/api/(.*)", "destination": "/app.py" },\n    { "source": "/(.*)", "destination": "/index.html" }\n  ]\n}\n');
+                    downloadTextFile('vercel.json', '{\n  "version": 2,\n  "builds": [\n    { "src": "app.py", "use": "@vercel/python" },\n    { "src": "index.html", "use": "@vercel/static" }\n  ],\n  "routes": [\n    { "src": "/api/(.*)", "dest": "/app.py" },\n    { "src": "/(.*)", "dest": "/index.html" }\n  ]\n}\n');
                 });
 
                 // Drawers
