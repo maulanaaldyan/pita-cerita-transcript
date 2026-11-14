@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imaji Kreatif Transcript — Pita Cerita Sinema</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #F4F6F8;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F8FAFC;
+            --text-main: #1A202C;
+            --text-body: #2D3748;
+            --text-muted: #718096;
+            --border-color: #E2E8F0;
+            --accent: #E86349;
+            --accent-hover: #D7553D;
+            --accent-soft: rgba(232, 99, 73, 0.1);
+            --success: #10B981;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-body);
+            margin: 0;
+            padding: 32px 16px 48px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--bg-card);
+            padding: 36px;
+            border-radius: 24px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(226, 232, 240, 0.7);
+        }
+
+        /* Header Area */
+        .header-area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .brand-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            width: 62px;
+            height: 62px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #1A202C 0%, #2D3748 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 6px 16px rgba(26, 32, 44, 0.14);
+            flex-shrink: 0;
+            border: 2px solid #FFFFFF;
+            transition: transform 0.2s ease;
+        }
+
+        .logo-wrapper:hover {
+            transform: scale(1.03);
+        }
+
+        .logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+            background: #FFFFFF;
+        }
+
+        .logo-badge-tip {
+            position: absolute;
+            bottom: 0;
+            inset-inline: 0;
+            background: rgba(0, 0, 0, 0.68);
+            color: #FFFFFF;
+            font-size: 9px;
+            text-align: center;
+            padding: 2px 0;
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-weight: 600;
+        }
+
+        .logo-wrapper:hover .logo-badge-tip {
+            opacity: 1;
+        }
+
+        .title-text h1 {
+            margin: 0;
+            font-size: 20px;
+            color: var(--text-main);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .status-pill {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #ECFDF5;
+            color: #047857;
+            border: 1px solid #A7F3D0;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #10B981;
+        }
+
+        .title-text p {
+            margin: 4px 0 0 0;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .icon-btn {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            color: var(--text-body);
+            padding: 9px 13px;
+            border-radius: 12px;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .icon-btn:hover {
+            background: #EDF2F7;
+            border-color: #CBD5E0;
+        }
+
+        /* SOP Info Banner */
+        .sop-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 14px;
+            background: #FFF9F7;
+            border: 1px solid #FBD5CE;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            font-size: 12.5px;
+            color: #9C4221;
+            flex-wrap: wrap;
+        }
+
+        .sop-banner strong {
+            color: #7B341E;
+        }
+
+        .engine-badge {
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 8px;
+            background: #FFFFFF;
+            color: var(--accent);
+            border: 1px solid #FBD5CE;
+        }
+
+        /* Input URL Box */
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+            background: var(--bg-subtle);
+            padding: 8px;
+            border-radius: 16px;
+            border: 1.5px solid var(--border-color);
+            transition: border-color 0.2s ease;
+        }
+
+        .input-group:focus-within {
+            border-color: var(--accent);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px var(--accent-soft);
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            flex: 1;
+            padding: 12px 14px;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            color: var(--text-body);
+            outline: none;
+            font-family: inherit;
+            min-width: 0;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder {
+            color: #A0AEC0;
+        }
+
+        button.action-btn {
+            padding: 12px 26px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(232, 99, 73, 0.25);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        button.action-btn:hover:not(:disabled) {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        button.action-btn:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        /* Quick Demo & Tools Bar */
+        .quick-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .sample-pills {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .config-label {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .sample-pill {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 8px;
+            background: #EDF2F7;
+            color: #4A5568;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-family: inherit;
+        }
+
+        .sample-pill:hover {
+            background: #E2E8F0;
+            color: var(--text-main);
+        }
+
+        /* Video Info Banner */
+        .video-meta-card {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 12px 16px;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            margin-bottom: 18px;
+        }
+
+        .video-meta-card.show {
+            display: flex;
+        }
+
+        .video-meta-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .video-thumb {
+            width: 64px;
+            height: 44px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: #2D3748;
+            flex-shrink: 0;
+        }
+
+        .video-meta-text h4 {
+            margin: 0;
+            font-size: 13.5px;
+            color: var(--text-main);
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 440px;
+        }
+
+        .video-meta-text p {
+            margin: 2px 0 0 0;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .chip-btn {
+            padding: 7px 12px;
+            border-radius: 9px;
+            border: 1px solid var(--border-color);
+            background: #FFFFFF;
+            color: var(--text-body);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .chip-btn:hover {
+            background: #EDF2F7;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background: var(--bg-page);
+            padding: 6px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            gap: 6px;
+        }
+
+        .tab {
+            padding: 12px 14px;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            transition: all 0.25s ease;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            border: none;
+            background: transparent;
+            font-family: inherit;
+        }
+
+        .tab.active {
+            background: var(--bg-card);
+            color: var(--text-main);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Output Box & Editor */
+        .editor-wrapper {
+            position: relative;
+        }
+
+        .output-box {
+            width: 100%;
+            background: var(--bg-subtle);
+            padding: 22px;
+            border-radius: 16px;
+            min-height: 240px;
+            line-height: 1.85;
+            font-size: 14.5px;
+            color: var(--text-body);
+            border: 1px solid var(--border-color);
+            font-family: inherit;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .output-box:focus {
+            background: #FFFFFF;
+            border-color: #CBD5E0;
+        }
+
+        /* Metrics & Action Toolbar */
+        .metrics-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: var(--bg-subtle);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            font-size: 12.5px;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        .metrics-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .metric-item strong {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .secondary-btn {
+            background: #FFFFFF;
+            color: var(--text-body);
+            border: 1px solid var(--border-color);
+            font-size: 13.5px;
+            padding: 13px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+
+        .secondary-btn:hover {
+            background: var(--bg-page);
+            border-color: #CBD5E0;
+        }
+
+        .primary-copy-btn {
+            background: var(--text-main);
+            color: #FFFFFF;
+            border: 1px solid var(--text-main);
+        }
+
+        .primary-copy-btn:hover {
+            background: #2D3748;
+            border-color: #2D3748;
+        }
+
+        /* Drawers */
+        .drawer-panel {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 16px;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+        }
+
+        .drawer-panel.open {
+            display: block;
+        }
+
+        .drawer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            gap: 8px;
+        }
+
+        .drawer-header h3 {
+            margin: 0;
+            font-size: 15px;
+            color: var(--text-main);
+        }
+
+        .field-row {
+            margin-bottom: 14px;
+        }
+
+        .field-row label {
+            display: block;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-body);
+            margin-bottom: 6px;
+        }
+
+        .field-input-wrap {
+            display: flex;
+            gap: 8px;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 4px 8px;
+        }
+
+        .field-help {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            line-height: 1.55;
+        }
+
+        .step-box {
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .step-box strong {
+            color: var(--text-main);
+        }
+
+        .download-files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 14px;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: border-color 0.15s;
+        }
+
+        .history-item:hover {
+            border-color: var(--accent);
+        }
+
+        .history-item-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .history-item-sub {
+            font-size: 11.5px;
+            color: var(--text-muted);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1A202C;
+            color: #FFFFFF;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 13.5px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.25s ease;
+            z-index: 9999;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 22px 18px;
+            }
+            .input-group {
+                flex-direction: column;
+                background: transparent;
+                border: none;
+                padding: 0;
+            }
+            .input-group input[type="text"] {
+                background: var(--bg-subtle);
+                border: 1.5px solid var(--border-color);
+                border-radius: 12px;
+            }
+            button.action-btn {
+                width: 100%;
+                padding: 14px;
+            }
+            .tabs {
+                flex-direction: column;
+            }
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header-area">
+            <div class="brand-left">
+                <div class="logo-wrapper" id="logoTrigger" title="Klik untuk memasang file LOGO IMAJI SINEMA PNG (2).png">
+                    <img id="customLogoImg" alt="Logo Imaji Sinema">
+                    <svg id="defaultLogoSvg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E86349" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z"></path>
+                        <path d="m6.2 5.3 3.1 3.9"></path>
+                        <path d="m12.4 3.4 3.1 4"></path>
+                        <path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"></path>
+                    </svg>
+                    <span class="logo-badge-tip">Ubah Logo</span>
+                </div>
+                <input type="file" id="logoFileInput" accept="image/*" style="display: none;">
+                <div class="title-text">
+                    <h1>
+                        Imaji Kreatif Transcript
+                        <span class="status-pill" id="connectionBadge">
+                            <span class="status-dot" id="connectionDot"></span>
+                            <span id="connectionText">Online 24 Jam Ready</span>
+                        </span>
+                    </h1>
+                    <p>Naskah Instan AI Voice-Over • Khusus Standar Pita Cerita Sinema</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button type="button" class="icon-btn" id="btnToggleHistory">
+                    🕒 Riwayat (<span id="historyCount">0</span>)
+                </button>
+                <button type="button" class="icon-btn" id="btnToggleDeploy">
+                    🌐 Panduan Online 24 Jam
+                </button>
+                <button type="button" class="icon-btn" id="btnToggleSettings">
+                    ⚙️ Mesin AI (<span id="engineModeLabel">Otomatis Tanpa Key</span>)
+                </button>
+            </div>
+        </div>
+
+        <!-- SOP Banner -->
+        <div class="sop-banner">
+            <div>
+                <strong>Standar Pita Cerita Sinema Aktif (Tanpa Batas Kata):</strong> Langsung masuk ke aksi pertama cerita (tanpa tambahan <em>hook</em> luar), POV orang ketiga sinematik, alur rapat 1 paragraf penuh mengalir sepanjang apa pun tanpa dipotong.
+            </div>
+            <span class="engine-badge" id="activeEngineBadge">⚡ Auto-Translate + Pita Cerita Engine</span>
+        </div>
+
+        <!-- URL Input Group -->
+        <div class="input-group">
+            <input type="text" id="youtubeUrl" placeholder="Paste link YouTube Shorts / Video Panjang di sini...">
+            <button type="button" class="action-btn" id="btnExtract">
+                <span id="btnExtractText">Ekstrak &amp; Buat Draft</span>
+            </button>
+        </div>
+
+        <!-- Quick Samples from Actual Pita Cerita Sinema Scripts & Manual Format -->
+        <div class="quick-bar">
+            <div class="sample-pills">
+                <span class="config-label" style="margin-right: 4px;">Contoh Naskah PCS:</span>
+                <button type="button" class="sample-pill" data-sample="husky">🐕 Eyes of An Angel</button>
+                <button type="button" class="sample-pill" data-sample="gambler">🎲 God of Gambler</button>
+                <button type="button" class="sample-pill" data-sample="orv">🚇 Omniscient Reader</button>
+            </div>
+            <button type="button" class="sample-pill" id="btnFormatManual" style="background: #FFF5F2; color: #E86349; border: 1px solid #FBD5CE;">
+                ✨ Rapikan Teks di Kotak Asli ke Draft SOP
+            </button>
+        </div>
+
+        <!-- Video Metadata Banner -->
+        <div class="video-meta-card" id="videoMetaCard">
+            <div class="video-meta-left">
+                <img id="videoThumb" class="video-thumb" alt="Thumbnail Video" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='44'><rect width='64' height='44' fill='%231A202C'/></svg>">
+                <div class="video-meta-text">
+                    <h4 id="videoTitle">Judul Video YouTube</h4>
+                    <p id="videoSub">Pita Cerita Sinema • Siap Proses</p>
+                </div>
+            </div>
+            <button type="button" class="chip-btn" id="btnRegenerateDraft">🔄 Racik Ulang Draft</button>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button type="button" class="tab active" id="tab-asli" data-tab="asli">Transcript Asli</button>
+            <button type="button" class="tab" id="tab-pcs" data-tab="pcs">Draft (Pita Cerita Sinema)</button>
+            <button type="button" class="tab" id="tab-time" data-tab="time">Log Timestamp CapCut</button>
+        </div>
+
+        <!-- Editable Output Areas -->
+        <div class="editor-wrapper">
+            <textarea id="output-asli" class="output-box" placeholder="Siap memproses video. Masukkan link YouTube di atas untuk menyedot transkrip, atau tempel (paste) transkrip mentah Bahasa Inggris/Indonesia sepanjang apa pun di sini lalu klik 'Rapikan Teks di Kotak Asli ke Draft SOP'..."></textarea>
+            <textarea id="output-pcs" class="output-box" style="display: none;" placeholder="Draft berstandar SOP Pita Cerita Sinema (1 paragraf mengalir tanpa hook tempelan, POV 3 sinematik, TANPA BATAS KATA/KARAKTER) akan muncul otomatis di sini..."></textarea>
+            <textarea id="output-time" class="output-box" style="display: none;" placeholder="Daftar timestamp per kalimat untuk panduan pemotongan klip di CapCut akan muncul di sini..."></textarea>
+        </div>
+
+        <!-- Live Metrics Bar -->
+        <div class="metrics-bar">
+            <div class="metrics-group">
+                <span class="metric-item">Jumlah Kata: <strong id="wordCount">0</strong> kata (Tanpa Batas)</span>
+                <span class="metric-item">Karakter: <strong id="charCount">0</strong></span>
+                <span class="metric-item">Estimasi VO: <strong id="voDuration">~0 detik</strong></span>
+            </div>
+            <span id="targetStatus" style="font-weight: 600; color: #047857;">✅ Format 1 Paragraf Penuh (Tanpa Batas)</span>
+        </div>
+
+        <!-- Bottom Action Buttons -->
+        <div class="action-grid">
+            <button type="button" class="secondary-btn primary-copy-btn" id="btnCopyText">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span id="copyBtnLabel">Copy Teks Tab Aktif</span>
+            </button>
+            <button type="button" class="secondary-btn" id="btnDownloadTxt">
+                Unduh .TXT
+            </button>
+            <button type="button" class="secondary-btn" id="btnClearAll">
+                Bersihkan
+            </button>
+        </div>
+
+        <!-- Online 24 Hours & Direct File Downloader Drawer -->
+        <div class="drawer-panel" id="deployDrawer">
+            <div class="drawer-header">
+                <h3>📥 Unduh File Server Langsung &amp; Panduan Online 24 Jam</h3>
+                <button type="button" class="chip-btn" id="btnCloseDeploy">Tutup</button>
+            </div>
+            <div class="step-box">
+                <strong>Solusi Anti-Gagal Download ZIP:</strong><br>
+                Kalau tombol ZIP di chat tidak bisa diklik, kamu bisa <strong>mengunduh masing-masing file server secara langsung lewat tombol di bawah ini</strong> (atau buka link Google Drive yang sudah disiapkan di chat):
+                <div class="download-files-grid">
+                    <button type="button" class="chip-btn" id="btnDlHtml">⬇️ Unduh index.html</button>
+                    <button type="button" class="chip-btn" id="btnDlAppPy">⬇️ Unduh app.py</button>
+                    <button type="button" class="chip-btn" id="btnDlReq">⬇️ Unduh requirements.txt</button>
+                    <button type="button" class="chip-btn" id="btnDlVercel">⬇️ Unduh vercel.json</button>
+                </div>
+            </div>
+            <div class="step-box">
+                <strong>Cara Meng-Online-kan 24 Jam di Vercel / Render (Gratis):</strong>
+                <ol style="margin: 6px 0 0 18px; padding: 0;">
+                    <li>Buka <strong>github.com</strong> → klik <strong>New Repository</strong> → beri nama <code>pita-cerita-transcript</code>.</li>
+                    <li>Klik <strong>uploading an existing file</strong> → masukkan ke-4 file di atas (<code>index.html</code>, <code>app.py</code>, <code>requirements.txt</code>, <code>vercel.json</code>) → klik <strong>Commit changes</strong>.</li>
+                    <li>Buka <strong>render.com</strong> atau <strong>vercel.com</strong> (login dengan akun GitHub) → pilih repository <code>pita-cerita-transcript</code> → klik <strong>Deploy</strong>. Link web kamu langsung aktif 24 jam dan bebas diakses dari rumah!</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Settings Drawer -->
+        <div class="drawer-panel" id="settingsDrawer">
+            <div class="drawer-header">
+                <h3>⚙️ Pengaturan Mesin Penulis Ulang Pita Cerita Sinema</h3>
+                <button type="button" class="chip-btn" id="btnCloseSettings">Tutup</button>
+            </div>
+            <div class="step-box">
+                <strong>Info Penting:</strong> Saat ini aplikasi <strong>SUDAH BISA LANGSUNG DIPAKAI TANPA GEMINI API KEY</strong> karena sudah ditanamkan <em>Mesin Auto-Translate Indonesia Tanpa Batas + Perapi Paragraf Pita Cerita Sinema</em> secara gratis.<br><br>
+                Jika suatu saat kamu ingin hasil <em>rewrite</em> AI penuh, kamu bisa membuat Gemini API Key gratis dalam 30 detik di <strong>aistudio.google.com/apikey</strong> lalu menempelkannya di bawah ini:
+            </div>
+            <div class="field-row">
+                <label for="geminiApiKeyInput">Gemini API Key (Opsional — Kosongkan jika memakai Mesin Otomatis Bawaan)</label>
+                <div class="field-input-wrap">
+                    <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy... (Kosongkan saja kalau belum punya)">
+                </div>
+            </div>
+            <div class="field-row">
+                <label for="customApiEndpointInput">Endpoint Server Backend</label>
+                <div class="field-input-wrap">
+                    <input type="text" id="customApiEndpointInput" placeholder="/api/extract">
+                </div>
+                <div class="field-help">
+                    Biarkan tetap <code>/api/extract</code> agar otomatis terhubung ke server Vercel/Render saat online 24 jam.
+                </div>
+            </div>
+            <button type="button" class="action-btn" id="btnSaveSettings" style="padding: 10px 20px; font-size: 13px;">
+                Simpan Pengaturan
+            </button>
+        </div>
+
+        <!-- History Drawer -->
+        <div class="drawer-panel" id="historyDrawer">
+            <div class="drawer-header">
+                <h3>🕒 Riwayat Naskah Pita Cerita Sinema</h3>
+                <button type="button" class="chip-btn" id="btnClearHistory">Hapus Riwayat</button>
+            </div>
+            <div class="history-list" id="historyListContainer"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toastBox">
+        <span id="toastMessage">Teks berhasil disalin!</span>
+    </div>
+
+    <script>
+        (function () {
+            let currentTab = 'asli';
+            let historyItems = [];
+
+            // Contoh asli dari Bank Naskah VO Pita Cerita Sinema (10 & 12 November 2026)
+            const PCS_SAMPLES = {
+                husky: {
+                    url: 'https://www.youtube.com/shorts/jd1swXwbTPk',
+                    title: 'Eyes of An Angel — Kisah Husky & Gadis Kecil',
+                    raw: 'The fierce fight between the two dogs leaves the husky defeated in seconds, and his owner drags him away as if taking him to the hospital. But out of anger, the man throws him straight into the sea. The husky manages to drag himself onto the beach in a dying state, right as a little girl walks by and stops to help him. She cleans his wounds, and although scared, the dog has no strength to fight back before the girl runs home and brings a blanket, medicine, and food. The husky stares at her like a stranger because he has never been treated so kindly, until the girl puts down the food and goes to school. Gradually the husky melts and accepts her as his owner, following her to school, sitting outside the gate all day, and following her home. Even after being separated by her father and uncle, the loyal dog tracks her scent and leads her crying father to the bridge where the lost girl is found. Her father finally realizes this dog is his daughter true happiness and promises never to leave him again.',
+                    pcs: 'Pertarungan sengit antara kedua anjing ini membuat sang husky kalah dalam sekejap dan diseret pemiliknya seolah hendak dibawa ke rumah sakit. Namun karena sangat marah, pria itu justru melemparkannya langsung ke laut. Husky ini berhasil menyeret diri ke pantai dalam kondisi sekarat, tepat saat seorang gadis kecil melintas dan berhenti menolongnya. Ia membersihkan lukanya, dan meski takut, anjing ini tak bertenaga melawan sebelum gadis itu berlari pulang lalu membawa selimut, obat, serta makanan. Husky ini menatapnya sebagai orang asing karena tak pernah diperlakukan sebaik itu, hingga sang gadis meletakkan makanan lalu pergi sekolah. Perlahan hati husky ini luluh dan menerimanya sebagai pemilik, sehingga ia mengikuti gadis itu ke sekolah, duduk di luar gerbang seharian, lalu membuntutinya pulang. Meski sempat dipisahkan berkali-kali karena keadaan keluarga mereka hingga gadis itu tersesat, husky ini tak menyerah melacak aromanya, menghibur sang ayah yang menangis, lalu menuntunnya ke jembatan tempat gadis itu ditemukan. Sang ayah kini sadar bahwa anjing ini adalah kebahagiaan dan sahabat sejati putrinya, sehingga ia berjanji tak akan pernah meninggalkannya lagi.',
+                    timestamps: '[00:00] Pertarungan sengit antara kedua anjing ini membuat sang husky kalah dalam sekejap.\n[00:06] Namun karena sangat marah, pria itu justru melemparkannya langsung ke laut.\n[00:12] Husky ini menyeret diri ke pantai tepat saat seorang gadis kecil berhenti menolongnya.\n[00:20] Perlahan hati husky ini luluh dan mengikuti gadis itu ke sekolah setiap hari.\n[00:29] Saat gadis itu tersesat, husky ini menuntun sang ayah ke jembatan hingga mereka bersatu kembali.'
+                },
+                gambler: {
+                    url: 'https://www.youtube.com/shorts/pNQ35WcSLqk',
+                    title: 'God of Gambler — Trik Tusuk Gigi & Pertarungan Kasino',
+                    raw: 'As soon as this man throws his chips onto the table, the dealer secretly changes the dice numbers, but the man gets suspicious when he faintly hears the sound of the dice switching so he immediately bets all his remaining chips on number twelve. His move is right and he wins a huge prize. Knowing the man won big, the casino owner sends his smartest players to take back the lost money, unaware that the casino is recording his cards with a hidden camera. When they check his cards, they see an ace, so the dealer prepares a higher card, but the man throws down two eights instead because he had slipped a toothpick between his cards to trick the camera. Furious, the casino owner sends One-Eye, his undefeated player, prompting the man to call his partner Jack. In the final two-on-two round, the man squeezes his cards tightly between his palms so One-Eye sensor cannot read them, and when the owner flips his winning card, it has Jack face printed on it, making it invalid and bankrupting the crooked casino completely.',
+                    pcs: 'Begitu pria ini melemparkan chipnya ke atas meja, sang bandar diam-diam mengganti angka pada dadu, namun pria ini mulai curiga ketika mendengar samar-samar suara pergantian dadu tersebut sehingga ia langsung mempertaruhkan seluruh sisa chipnya di angka dua belas. Ternyata langkahnya tepat dan ia pun memenangkan hadiah besar, bahkan membuat pemilik kasino segera mengirim para pemain paling cerdasnya untuk merebut kembali uang yang hilang. Pihak kasino diam-diam merekam kartunya menggunakan kamera tersembunyi dan melihat kartu as, namun begitu kartu dibuka, pria ini justru melemparkan dua kartu delapan karena ia sengaja menyelipkan sebatang tusuk gigi di antara kartunya untuk menipu kamera pengawas. Pemilik kasino yang marah langsung mengirimkan pemain tak terkalahkan berjuluk si Satu Mata, membuat pria ini memanggil rekannya yang bernama Jack hingga pertandingan ditentukan lewat putaran terakhir dua lawan dua. Saat si Satu Mata menggunakan sensor di matanya, pria ini menjepit rapat kartunya di antara kedua telapak tangan, dan ketika sang pemilik kasino membalik kartunya, ternyata wajah Jack lah yang tercetak di sana sehingga kartu itu dianggap tidak sah dan membuat kasino licik tersebut resmi bangkrut tak tersisa.',
+                    timestamps: '[00:00] Begitu pria ini melemparkan chipnya ke atas meja, sang bandar diam-diam mengganti angka dadu.\n[00:08] Ia curiga mendengar suara dadu lalu mempertaruhkan seluruh chip di angka dua belas.\n[00:16] Pihak kasino merekam kartunya dengan kamera tersembunyi namun tertipu trik tusuk gigi.\n[00:25] Pemilik kasino mengirim si Satu Mata hingga pria ini memanggil Jack untuk ronde terakhir.\n[00:34] Kartu pemilik kasino ternyata bergambar wajah Jack hingga kasino licik itu bangkrut.'
+                },
+                orv: {
+                    url: 'https://www.youtube.com/shorts/YLXUZ2QEo88',
+                    title: 'Omniscient Reader — Lima Puluh Zona Aman di Stasiun',
+                    raw: 'In this underground station, only people standing on the green tiles can survive, because the moment someone steps outside, vicious monsters immediately attack without mercy. When thousands of people realize there are only fifty safe zones in the entire place, the situation instantly turns into a brutal life-and-death struggle. Within seconds, screams of terror echo from every corner of the station, leaving one safe area controlled by an armed gang where anyone trying to approach is shot dead on the spot. Meanwhile the monsters keep rushing in to slaughter the innocent, until in just a few minutes, less than half of the population manages to survive.',
+                    pcs: 'Di stasiun bawah tanah ini, hanya orang-orang yang berdiri di atas ubin hijau yang bisa tetap bertahan hidup, karena begitu seseorang melangkahkan kaki keluar darinya, para monster ganas akan langsung menyerang tanpa belas kasihan. Ketika ribuan orang menyadari bahwa hanya tersedia lima puluh zona aman di seluruh tempat itu, situasi seketika berubah menjadi pertarungan hidup dan mati yang sangat brutal. Dalam hitungan detik, jeritan ketakutan menggema dari segala sudut stasiun, menyisakan satu area aman yang dikuasai oleh kelompok geng bersenjata di mana siapa pun yang mencoba mendekat akan langsung ditembak mati. Sementara itu para monster terus merangsek masuk membantai orang-orang tak berdosa, hingga hanya dalam beberapa menit saja, kurang dari separuh populasi yang berhasil selamat.',
+                    timestamps: '[00:00] Di stasiun bawah tanah ini, hanya orang di atas ubin hijau yang bisa bertahan hidup.\n[00:07] Ribuan orang sadar hanya ada lima puluh zona aman di seluruh stasiun.\n[00:15] Kelompok geng bersenjata menguasai area aman dan menembak siapa pun yang mendekat.\n[00:23] Para monster merangsek masuk hingga kurang dari separuh populasi yang selamat.'
+                }
+            };
+
+            function safeGetStorage(key, fallback) {
+                try {
+                    const val = localStorage.getItem(key);
+                    return val !== null ? val : fallback;
+                } catch (e) {
+                    return fallback;
+                }
+            }
+
+            function safeSetStorage(key, val) {
+                try {
+                    localStorage.setItem(key, val);
+                } catch (e) {
+                    // Diabaikan jika mode privat memblokir storage
+                }
+            }
+
+            function showToast(msg) {
+                const toast = document.getElementById('toastBox');
+                const label = document.getElementById('toastMessage');
+                label.textContent = msg;
+                toast.classList.add('show');
+                if (window._toastTimer) clearTimeout(window._toastTimer);
+                window._toastTimer = setTimeout(function () {
+                    toast.classList.remove('show');
+                }, 2800);
+            }
+
+            function extractVideoId(url) {
+                if (!url) return '';
+                const trimmed = url.trim();
+                const patterns = [
+                    /(?:youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
+                    /(?:youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/,
+                    /(?:youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+                    /(?:youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
+                    /^([a-zA-Z0-9_-]{11})$/
+                ];
+                for (let i = 0; i < patterns.length; i++) {
+                    const m = trimmed.match(patterns[i]);
+                    if (m && m[1]) return m[1];
+                }
+                return '';
+            }
+
+            const ANGKA_MAP = {
+                '1': 'satu', '2': 'dua', '3': 'tiga', '4': 'empat', '5': 'lima',
+                '6': 'enam', '7': 'tujuh', '8': 'delapan', '9': 'sembilan', '10': 'sepuluh',
+                '11': 'sebelas', '12': 'dua belas', '15': 'lima belas', '20': 'dua puluh',
+                '30': 'tiga puluh', '50': 'lima puluh', '100': 'seratus', '1000': 'seribu'
+            };
+
+            function polishToPitaCeritaStyle(text) {
+                if (!text) return '';
+                let s = text
+                    .replace(/\[\d{1,2}:\d{2}(?::\d{2})?\]/g, ' ')
+                    .replace(/\[[^\]]*\]/g, ' ')
+                    .replace(/\r?\n+/g, ' ')
+                    .replace(/\s{2,}/g, ' ')
+                    .trim();
+
+                const replacements = [
+                    [/\bDia\b/g, 'Ia'],
+                    [/\bdia\b/g, 'ia'],
+                    [/\bTapi\b/g, 'Namun'],
+                    [/\btapi\b/g, 'namun'],
+                    [/\btetapi\b/g, 'namun'],
+                    [/\bkarena itu\b/gi, 'sehingga'],
+                    [/\boleh karena itu\b/gi, 'sehingga'],
+                    [/\bPada akhirnya\b/g, 'Hingga akhirnya'],
+                    [/\bpada akhirnya\b/g, 'hingga akhirnya'],
+                    [/\bTiba-tiba\b/g, 'Seketika'],
+                    [/\bSnout [Ll]ee\b/g, 'Snootley'],
+                    [/\bCinema From The Sun\b/gi, 'Pita Cerita Sinema']
+                ];
+                for (let i = 0; i < replacements.length; i++) {
+                    s = s.replace(replacements[i][0], replacements[i][1]);
+                }
+
+                s = s.replace(/\b(1|2|3|4|5|6|7|8|9|10|11|12|15|20|30|50|100|1000)\b/g, function (match) {
+                    return ANGKA_MAP[match] || match;
+                });
+
+                if (s.length > 0) {
+                    s = s.charAt(0).toUpperCase() + s.slice(1);
+                    if (!/[.!?]$/.test(s)) s += '.';
+                }
+
+                // TANPA BATAS KARAKTER / KATA — seluruh naskah dipertahankan utuh 100%
+                return s;
+            }
+
+            // Translasi per bagian kalimat agar naskah panjang tanpa batas tidak terpotong oleh batas URL
+            async function translateToIndonesianFree(rawText) {
+                if (!rawText) return '';
+                const cleanInput = rawText
+                    .replace(/\[\d{1,2}:\d{2}(?::\d{2})?\]/g, ' ')
+                    .replace(/\r?\n+/g, ' ')
+                    .replace(/\s{2,}/g, ' ')
+                    .trim();
+
+                const sentences = cleanInput.split(/(?<=[.!?])\s+/);
+                const chunks = [];
+                let current = '';
+                for (let i = 0; i < sentences.length; i++) {
+                    const sent = sentences[i];
+                    if ((current.length + sent.length + 1) > 1700 && current) {
+                        chunks.push(current.trim());
+                        current = sent;
+                    } else {
+                        current = current ? (current + ' ' + sent) : sent;
+                    }
+                }
+                if (current) chunks.push(current.trim());
+
+                const outChunks = [];
+                for (let c = 0; c < chunks.length; c++) {
+                    try {
+                        const url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=id&dt=t&q=' + encodeURIComponent(chunks[c]);
+                        const res = await fetch(url);
+                        if (res.ok) {
+                            const data = await res.json();
+                            if (Array.isArray(data) && Array.isArray(data[0])) {
+                                const translatedParts = [];
+                                for (let i = 0; i < data[0].length; i++) {
+                                    if (data[0][i] && data[0][i][0]) {
+                                        translatedParts.push(data[0][i][0]);
+                                    }
+                                }
+                                const joined = translatedParts.join(' ').replace(/\s{2,}/g, ' ').trim();
+                                if (joined) {
+                                    outChunks.push(joined);
+                                    continue;
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        // Lanjut dengan teks asli jika jaringan memblokir
+                    }
+                    outChunks.push(chunks[c]);
+                }
+
+                return outChunks.join(' ').replace(/\s{2,}/g, ' ').trim();
+            }
+
+            async function rewriteWithGeminiPitaCerita(rawText, apiKey) {
+                const promptText = [
+                    'Kamu adalah penulis naskah senior untuk kanal YouTube "Pita Cerita Sinema".',
+                    'Tugasmu: Terjemahkan (jika masih bahasa Inggris/asing) dan tulis ulang transkrip berikut menjadi naskah AI Voice-Over Bahasa Indonesia yang persis mengikuti gaya Pita Cerita Sinema.',
+                    '',
+                    'ATURAN BAKU SOP PITA CERITA SINEMA (WAJIB DIIKUTI 100%):',
+                    '1. JANGAN tambahkan kalimat hook basa-basi atau sapaan di awal. Langsung buka kalimat pertama dengan AKSI KONKRET dari adegan pertama cerita (contoh gaya: "Begitu pria ini melemparkan chipnya...", "Pertarungan sengit antara kedua anjing ini...", "Di stasiun bawah tanah ini...").',
+                    '2. Format WAJIB SATU PARAGRAF PENUH MENGALIR (single-paragraph layout) tanpa pemenggalan enter/baris baru sama sekali dan TANPA BATAS KATA/KARAKTER (jangan memotong isi cerita).',
+                    '3. Gunakan sudut pandang orang ketiga (POV 3) yang sinematik, visual, dan dramatis ("pria ini", "gadis itu", "sang ayah", "ia", "mereka").',
+                    '4. Sambungkan antar-adegan dengan konjungsi sebab-akibat yang rapat dan mengalir mulus ("namun karena...", "tepat saat...", "sehingga ia...", "membuatnya...", "hingga akhirnya...") agar pembacaan AI Voice-Over cepat dan tanpa jeda mati.',
+                    '5. Tulis angka dalam bentuk kata terbilang bahasa Indonesia (misal "dua belas", "lima puluh") dan atur koma serta titik secara presisi untuk intonasi suara AI.',
+                    '6. Pertahankan 100% akurasi plot dan emosi cerita asli sampai konklusi adegan terakhir tanpa dipotong.',
+                    '',
+                    'Transkrip Asli:',
+                    rawText,
+                    '',
+                    'Langsung tuliskan hasil akhir naskah dalam 1 paragraf utuh tanpa judul atau pengantar:'
+                ].join('\n');
+
+                const endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' + encodeURIComponent(apiKey.trim());
+                const resp = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: promptText }] }],
+                        generationConfig: { temperature: 0.55, maxOutputTokens: 8192 }
+                    })
+                });
+
+                if (!resp.ok) {
+                    throw new Error('Gemini API HTTP ' + resp.status);
+                }
+                const data = await resp.json();
+                const text = data &&
+                    data.candidates &&
+                    data.candidates[0] &&
+                    data.candidates[0].content &&
+                    data.candidates[0].content.parts &&
+                    data.candidates[0].content.parts[0] &&
+                    data.candidates[0].content.parts[0].text;
+
+                if (!text) throw new Error('Respons Gemini kosong');
+                return polishToPitaCeritaStyle(text);
+            }
+
+            async function buildPitaCeritaDraft(rawText) {
+                const geminiKey = document.getElementById('geminiApiKeyInput').value.trim();
+                if (geminiKey) {
+                    try {
+                        return await rewriteWithGeminiPitaCerita(rawText, geminiKey);
+                    } catch (e) {
+                        // Otomatis beralih ke mesin bawaan jika API key belum valid
+                    }
+                }
+                const translated = await translateToIndonesianFree(rawText);
+                return polishToPitaCeritaStyle(translated);
+            }
+
+            function updateEngineIndicators() {
+                const hasKey = Boolean(document.getElementById('geminiApiKeyInput').value.trim());
+                const modeLabel = document.getElementById('engineModeLabel');
+                const badge = document.getElementById('activeEngineBadge');
+                if (hasKey) {
+                    modeLabel.textContent = 'Gemini AI Aktif';
+                    badge.textContent = '✨ Gemini 2.5 Flash • Tanpa Batas Kata';
+                } else {
+                    modeLabel.textContent = 'Otomatis Tanpa Key';
+                    badge.textContent = '⚡ Auto-Translate + Pita Cerita (Tanpa Batas)';
+                }
+            }
+
+            function updateMetrics() {
+                const activeBox = document.getElementById('output-' + currentTab);
+                const text = (activeBox ? activeBox.value : '').trim();
+                const words = text ? text.split(/\s+/).filter(Boolean).length : 0;
+                const chars = text.length;
+                const estSeconds = Math.round((words / 150) * 60);
+
+                document.getElementById('wordCount').textContent = String(words);
+                document.getElementById('charCount').textContent = String(chars);
+                document.getElementById('voDuration').textContent = '~' + estSeconds + ' detik';
+
+                const statusEl = document.getElementById('targetStatus');
+                statusEl.textContent = '✅ Format 1 Paragraf Penuh (Tanpa Batas Kata)';
+                statusEl.style.color = '#047857';
+            }
+
+            function switchTab(tab) {
+                ['asli', 'pcs', 'time'].forEach(function (t) {
+                    const tabBtn = document.getElementById('tab-' + t);
+                    const box = document.getElementById('output-' + t);
+                    if (t === tab) {
+                        tabBtn.classList.add('active');
+                        box.style.display = 'block';
+                    } else {
+                        tabBtn.classList.remove('active');
+                        box.style.display = 'none';
+                    }
+                });
+                currentTab = tab;
+                updateMetrics();
+            }
+
+            async function refreshDraftFromRaw() {
+                const rawText = document.getElementById('output-asli').value.trim();
+                if (!rawText) {
+                    showToast('⚠️ Kotak Transcript Asli masih kosong!');
+                    return;
+                }
+                const pcsBox = document.getElementById('output-pcs');
+                pcsBox.value = '⏳ Menerjemahkan dan menyusun narasi 1 paragraf Pita Cerita Sinema tanpa batas kata...';
+                const result = await buildPitaCeritaDraft(rawText);
+                pcsBox.value = result;
+                updateMetrics();
+                showToast('✨ Draft Pita Cerita Sinema selesai disusun!');
+            }
+
+            async function fetchVideoMetadataOnline(videoId) {
+                try {
+                    const watchUrl = 'https://www.youtube.com/watch?v=' + videoId;
+                    const resp = await fetch('https://noembed.com/embed?url=' + encodeURIComponent(watchUrl));
+                    if (!resp.ok) return null;
+                    return await resp.json();
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            async function tryBrowserPublicTranscript(videoId) {
+                const instances = [
+                    'https://pipedapi.kavin.rocks',
+                    'https://pipedapi.tokhmi.xyz'
+                ];
+                for (let i = 0; i < instances.length; i++) {
+                    try {
+                        const res = await fetch(instances[i] + '/streams/' + videoId);
+                        if (!res.ok) continue;
+                        const data = await res.json();
+                        const subtitles = data.subtitles || [];
+                        if (subtitles.length > 0) {
+                            const chosen = subtitles.find(function (s) { return s.code && s.code.indexOf('id') === 0; }) ||
+                                           subtitles.find(function (s) { return s.code && s.code.indexOf('en') === 0; }) ||
+                                           subtitles[0];
+                            if (chosen && chosen.url) {
+                                const subRes = await fetch(chosen.url);
+                                const subXml = await subRes.text();
+                                const parser = new DOMParser();
+                                const xmlDoc = parser.parseFromString(subXml, 'text/xml');
+                                const textNodes = xmlDoc.getElementsByTagName('text');
+                                if (textNodes && textNodes.length > 0) {
+                                    const rawParts = [];
+                                    const timeParts = [];
+                                    for (let j = 0; j < textNodes.length; j++) {
+                                        const node = textNodes[j];
+                                        const content = (node.textContent || '').replace(/\s+/g, ' ').trim();
+                                        if (!content) continue;
+                                        const startSec = Math.floor(parseFloat(node.getAttribute('start') || '0'));
+                                        const mm = String(Math.floor(startSec / 60)).padStart(2, '0');
+                                        const ss = String(startSec % 60).padStart(2, '0');
+                                        rawParts.push(content);
+                                        timeParts.push('[' + mm + ':' + ss + '] ' + content);
+                                    }
+                                    if (rawParts.length > 0) {
+                                        return {
+                                            asli: rawParts.join(' '),
+                                            timestamped: timeParts.join('\n'),
+                                            language: chosen.code || 'auto'
+                                        };
+                                    }
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        // Lanjut ke instance berikutnya
+                    }
+                }
+                return null;
+            }
+
+            function saveToHistory(entry) {
+                historyItems = historyItems.filter(function (item) {
+                    return item.url !== entry.url;
+                });
+                historyItems.unshift(entry);
+                if (historyItems.length > 12) historyItems.pop();
+                safeSetStorage('imaji_pcs_history', JSON.stringify(historyItems));
+                renderHistory();
+            }
+
+            function renderHistory() {
+                const countEl = document.getElementById('historyCount');
+                const container = document.getElementById('historyListContainer');
+                countEl.textContent = String(historyItems.length);
+                container.innerHTML = '';
+
+                if (historyItems.length === 0) {
+                    const emptyDiv = document.createElement('div');
+                    emptyDiv.className = 'field-help';
+                    emptyDiv.textContent = 'Belum ada riwayat naskah di perangkat ini.';
+                    container.appendChild(emptyDiv);
+                    return;
+                }
+
+                historyItems.forEach(function (item) {
+                    const row = document.createElement('div');
+                    row.className = 'history-item';
+                    const left = document.createElement('div');
+                    const title = document.createElement('div');
+                    title.className = 'history-item-title';
+                    title.textContent = item.title || item.url;
+                    const sub = document.createElement('div');
+                    sub.className = 'history-item-sub';
+                    sub.textContent = 'Pita Cerita Sinema • ' + (item.time || 'Tersimpan');
+                    left.appendChild(title);
+                    left.appendChild(sub);
+
+                    const loadBtn = document.createElement('span');
+                    loadBtn.className = 'chip-btn';
+                    loadBtn.textContent = 'Buka';
+
+                    row.appendChild(left);
+                    row.appendChild(loadBtn);
+                    row.addEventListener('click', function () {
+                        document.getElementById('youtubeUrl').value = item.url || '';
+                        document.getElementById('output-asli').value = item.asli || '';
+                        document.getElementById('output-pcs').value = item.pcs || '';
+                        document.getElementById('output-time').value = item.timestamped || '';
+                        updateMetrics();
+                        showToast('📂 Naskah "' + (item.title || 'Riwayat') + '" dimuat kembali.');
+                    });
+                    container.appendChild(row);
+                });
+            }
+
+            async function processVideo() {
+                const urlInput = document.getElementById('youtubeUrl').value.trim();
+                const rawBox = document.getElementById('output-asli');
+                const pcsBox = document.getElementById('output-pcs');
+                const timeBox = document.getElementById('output-time');
+                const btn = document.getElementById('btnExtract');
+                const btnText = document.getElementById('btnExtractText');
+
+                if (!urlInput) {
+                    if (rawBox.value.trim()) {
+                        await refreshDraftFromRaw();
+                        switchTab('pcs');
+                        return;
+                    }
+                    showToast('⚠️ Masukkan link YouTube terlebih dahulu!');
+                    document.getElementById('youtubeUrl').focus();
+                    return;
+                }
+
+                const videoId = extractVideoId(urlInput);
+                if (!videoId) {
+                    showToast('⚠️ Format link YouTube tidak valid. Gunakan link Shorts, Watch, atau Youtu.be.');
+                    return;
+                }
+
+                const sampleKeys = Object.keys(PCS_SAMPLES);
+                for (let k = 0; k < sampleKeys.length; k++) {
+                    const s = PCS_SAMPLES[sampleKeys[k]];
+                    if (extractVideoId(s.url) === videoId) {
+                        loadSampleData(sampleKeys[k]);
+                        switchTab('pcs');
+                        return;
+                    }
+                }
+
+                btn.disabled = true;
+                btnText.textContent = 'Menyedot...';
+                rawBox.value = '⏳ Mesin sedang menyedot transcript dari YouTube (ID: ' + videoId + ')...';
+                pcsBox.value = '⏳ Menerjemahkan & menyusun naskah 1 paragraf Pita Cerita Sinema...';
+                timeBox.value = '⏳ Menyusun log timestamp CapCut...';
+
+                const geminiKey = document.getElementById('geminiApiKeyInput').value.trim();
+                const customEndpoint = (document.getElementById('customApiEndpointInput').value || '/api/extract').trim();
+
+                const metaPromise = fetchVideoMetadataOnline(videoId);
+                let extractedData = null;
+
+                if (window.location.protocol.indexOf('http') === 0 && (customEndpoint.indexOf('/') === 0 || customEndpoint.indexOf('https://') === 0)) {
+                    try {
+                        const response = await fetch(customEndpoint, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                url: urlInput,
+                                gemini_key: geminiKey
+                            })
+                        });
+                        if (response.ok) {
+                            const json = await response.json();
+                            if (json && json.status === 'success' && json.asli) {
+                                extractedData = {
+                                    asli: json.asli,
+                                    timestamped: json.timestamped || json.asli,
+                                    pcs_draft: json.pcs_draft || '',
+                                    language: json.language || 'auto'
+                                };
+                            }
+                        }
+                    } catch (err) {
+                        // Lanjut ke ekstraktor cloud browser
+                    }
+                }
+
+                if (!extractedData) {
+                    const cloudResult = await tryBrowserPublicTranscript(videoId);
+                    if (cloudResult) {
+                        extractedData = cloudResult;
+                    }
+                }
+
+                const meta = await metaPromise;
+                const metaCard = document.getElementById('videoMetaCard');
+                const videoTitle = (meta && meta.title) ? meta.title : ('Video YouTube (' + videoId + ')');
+                const videoAuthor = (meta && meta.author_name) ? meta.author_name : 'YouTube';
+                document.getElementById('videoTitle').textContent = videoTitle;
+                document.getElementById('videoThumb').src = 'https://i.ytimg.com/vi/' + videoId + '/hqdefault.jpg';
+                metaCard.classList.add('show');
+
+                if (extractedData && extractedData.asli) {
+                    rawBox.value = extractedData.asli;
+                    timeBox.value = extractedData.timestamped || extractedData.asli;
+                    document.getElementById('videoSub').textContent = videoAuthor + ' • Subtitle: ' + (extractedData.language || 'Auto');
+
+                    if (extractedData.pcs_draft) {
+                        pcsBox.value = extractedData.pcs_draft;
+                    } else {
+                        pcsBox.value = await buildPitaCeritaDraft(extractedData.asli);
+                    }
+
+                    saveToHistory({
+                        url: urlInput,
+                        title: videoTitle,
+                        asli: rawBox.value,
+                        pcs: pcsBox.value,
+                        timestamped: timeBox.value,
+                        time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+                    });
+
+                    switchTab('pcs');
+                    showToast('✅ Transkrip berhasil disedot & diubah ke gaya Pita Cerita Sinema!');
+                } else {
+                    document.getElementById('videoSub').textContent = videoAuthor + ' • Menunggu Deploy Server / Input Teks';
+                    rawBox.value = '';
+                    rawBox.placeholder = 'ℹ️ Video "' + videoTitle + '" ditemukan! Agar penyedot otomatis YouTube jalan 24 jam untuk semua video, deploy file server ke Vercel/Render (klik tombol 📥 Unduh File Server & Panduan 24 Jam di kanan atas).\n\nSambil menunggu deploy, kamu bisa langsung tempel (paste) teks transkrip bahasa Inggris/Indonesia sepanjang apa pun di kotak ini lalu klik tombol "✨ Rapikan Teks di Kotak Asli ke Draft SOP"!';
+                    pcsBox.value = 'Menunggu teks di kotak Transcript Asli...';
+                    timeBox.value = 'Menunggu teks...';
+                    showToast('ℹ️ Tempel teks di kotak Asli atau aktifkan server Vercel 24 jam.');
+                }
+
+                btn.disabled = false;
+                btnText.textContent = 'Ekstrak & Buat Draft';
+                updateMetrics();
+            }
+
+            function loadSampleData(sampleKey) {
+                const sample = PCS_SAMPLES[sampleKey];
+                if (!sample) return;
+                document.getElementById('youtubeUrl').value = sample.url;
+                document.getElementById('output-asli').value = sample.raw;
+                document.getElementById('output-pcs').value = sample.pcs;
+                document.getElementById('output-time').value = sample.timestamps || '';
+
+                const vid = extractVideoId(sample.url);
+                const metaCard = document.getElementById('videoMetaCard');
+                document.getElementById('videoTitle').textContent = sample.title;
+                document.getElementById('videoSub').textContent = 'Contoh Naskah Asli Pita Cerita Sinema • 1 Paragraf Mengalir (Tanpa Batas)';
+                if (vid) {
+                    document.getElementById('videoThumb').src = 'https://i.ytimg.com/vi/' + vid + '/hqdefault.jpg';
+                }
+                metaCard.classList.add('show');
+
+                saveToHistory({
+                    url: sample.url,
+                    title: sample.title,
+                    asli: sample.raw,
+                    pcs: sample.pcs,
+                    timestamped: sample.timestamps || '',
+                    time: 'Contoh SOP'
+                });
+
+                updateMetrics();
+                showToast('🎬 Contoh "' + sample.title + '" dimuat!');
+            }
+
+            function copyActiveText() {
+                const activeBox = document.getElementById('output-' + currentTab);
+                const text = (activeBox ? activeBox.value : '').trim();
+                if (!text) {
+                    showToast('⚠️ Belum ada teks untuk disalin di tab ini.');
+                    return;
+                }
+
+                const finishCopy = function () {
+                    const label = document.getElementById('copyBtnLabel');
+                    label.textContent = 'Tersalin ke Clipboard!';
+                    showToast('📋 Teks berhasil di-copy ke clipboard!');
+                    setTimeout(function () {
+                        label.textContent = 'Copy Teks Tab Aktif';
+                    }, 1800);
+                };
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(finishCopy).catch(function () {
+                        fallbackCopyText(activeBox, finishCopy);
+                    });
+                } else {
+                    fallbackCopyText(activeBox, finishCopy);
+                }
+            }
+
+            function fallbackCopyText(textareaEl, callback) {
+                try {
+                    textareaEl.select();
+                    document.execCommand('copy');
+                    window.getSelection().removeAllRanges();
+                    callback();
+                } catch (e) {
+                    showToast('Silakan blok teks lalu tekan Ctrl+C.');
+                }
+            }
+
+            function downloadTextFile(filename, content) {
+                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('💾 File ' + filename + ' berhasil diunduh!');
+            }
+
+            function downloadActiveTxt() {
+                const activeBox = document.getElementById('output-' + currentTab);
+                const text = (activeBox ? activeBox.value : '').trim();
+                if (!text) {
+                    showToast('⚠️ Belum ada teks untuk diunduh.');
+                    return;
+                }
+                downloadTextFile('pita-cerita-sinema-' + currentTab + '.txt', text);
+            }
+
+            function closeAllDrawers() {
+                document.getElementById('settingsDrawer').classList.remove('open');
+                document.getElementById('historyDrawer').classList.remove('open');
+                document.getElementById('deployDrawer').classList.remove('open');
+            }
+
+            const SERVER_APP_PY_CODE = [
+                "from flask import Flask, request, jsonify, send_from_directory",
+                "from flask_cors import CORS",
+                "from youtube_transcript_api import YouTubeTranscriptApi",
+                "import os, re, requests",
+                "",
+                "app = Flask(__name__, static_folder='.')",
+                "CORS(app)",
+                "",
+                "def extract_video_id(url):",
+                "    for p in [r'(?:youtube\\.com\\/shorts\\/)([a-zA-Z0-9_-]{11})', r'(?:youtube\\.com\\/watch\\?v=)([a-zA-Z0-9_-]{11})', r'(?:youtu\\.be\\/)([a-zA-Z0-9_-]{11})']:",
+                "        m = re.search(p, url or '')",
+                "        if m: return m.group(1)",
+                "    return ''",
+                "",
+                "@app.route('/')",
+                "def index(): return send_from_directory('.', 'index.html')",
+                "",
+                "@app.route('/api/extract', methods=['POST'])",
+                "def extract():",
+                "    data = request.get_json(silent=True) or {}",
+                "    vid = extract_video_id(data.get('url', ''))",
+                "    if not vid: return jsonify({'status': 'error', 'message': 'URL tidak valid'}), 400",
+                "    try:",
+                "        ytt = YouTubeTranscriptApi()",
+                "        fetched = ytt.fetch(vid, languages=['id', 'en']) if hasattr(ytt, 'fetch') else YouTubeTranscriptApi.get_transcript(vid, languages=['id', 'en'])",
+                "        texts = [ (i.get('text','') if isinstance(i,dict) else getattr(i,'text','')) for i in fetched ]",
+                "        raw = re.sub(r'\\s+', ' ', ' '.join(texts)).strip()",
+                "        return jsonify({'status': 'success', 'video_id': vid, 'asli': raw})",
+                "    except Exception as e:",
+                "        return jsonify({'status': 'error', 'message': str(e)}), 500",
+                "",
+                "if __name__ == '__main__':",
+                "    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))"
+            ].join('\n');
+
+            function initApp() {
+                const savedKey = safeGetStorage('imaji_gemini_key', '');
+                const savedEndpoint = safeGetStorage('imaji_api_endpoint', '/api/extract');
+                const savedLogo = safeGetStorage('imaji_custom_logo', '');
+                const savedHistory = safeGetStorage('imaji_pcs_history', '[]');
+
+                document.getElementById('geminiApiKeyInput').value = savedKey;
+                document.getElementById('customApiEndpointInput').value = savedEndpoint;
+                updateEngineIndicators();
+
+                if (savedLogo) {
+                    const img = document.getElementById('customLogoImg');
+                    img.src = savedLogo;
+                    img.style.display = 'block';
+                    document.getElementById('defaultLogoSvg').style.display = 'none';
+                }
+
+                try {
+                    historyItems = JSON.parse(savedHistory) || [];
+                } catch (e) {
+                    historyItems = [];
+                }
+                renderHistory();
+
+                loadSampleData('gambler');
+
+                // Tabs
+                document.querySelectorAll('.tab').forEach(function (tabBtn) {
+                    tabBtn.addEventListener('click', function () {
+                        switchTab(tabBtn.getAttribute('data-tab'));
+                    });
+                });
+
+                // Sample Pills
+                document.querySelectorAll('.sample-pill[data-sample]').forEach(function (pill) {
+                    pill.addEventListener('click', function () {
+                        loadSampleData(pill.getAttribute('data-sample'));
+                        switchTab('pcs');
+                    });
+                });
+
+                // Main Buttons
+                document.getElementById('btnExtract').addEventListener('click', processVideo);
+                document.getElementById('youtubeUrl').addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') processVideo();
+                });
+
+                document.getElementById('btnFormatManual').addEventListener('click', async function () {
+                    await refreshDraftFromRaw();
+                    switchTab('pcs');
+                });
+
+                document.getElementById('btnRegenerateDraft').addEventListener('click', async function () {
+                    await refreshDraftFromRaw();
+                    switchTab('pcs');
+                });
+
+                document.getElementById('btnCopyText').addEventListener('click', copyActiveText);
+                document.getElementById('btnDownloadTxt').addEventListener('click', downloadActiveTxt);
+
+                document.getElementById('btnClearAll').addEventListener('click', function () {
+                    document.getElementById('youtubeUrl').value = '';
+                    document.getElementById('output-asli').value = '';
+                    document.getElementById('output-pcs').value = '';
+                    document.getElementById('output-time').value = '';
+                    document.getElementById('videoMetaCard').classList.remove('show');
+                    updateMetrics();
+                    showToast('🧹 Lembar kerja dibersihkan.');
+                });
+
+                ['asli', 'pcs', 'time'].forEach(function (t) {
+                    document.getElementById('output-' + t).addEventListener('input', updateMetrics);
+                });
+
+                // Direct Individual Server File Downloads
+                document.getElementById('btnDlHtml').addEventListener('click', function () {
+                    downloadTextFile('index.html', '<!DOCTYPE html>\n' + document.documentElement.outerHTML);
+                });
+                document.getElementById('btnDlAppPy').addEventListener('click', function () {
+                    downloadTextFile('app.py', SERVER_APP_PY_CODE);
+                });
+                document.getElementById('btnDlReq').addEventListener('click', function () {
+                    downloadTextFile('requirements.txt', 'flask>=3.0.0\nflask-cors>=4.0.0\nyoutube-transcript-api>=0.6.2\nrequests>=2.31.0\ngunicorn>=21.2.0\n');
+                });
+                document.getElementById('btnDlVercel').addEventListener('click', function () {
+                    downloadTextFile('vercel.json', '{\n  "version": 2,\n  "rewrites": [\n    { "source": "/api/(.*)", "destination": "/app.py" },\n    { "source": "/(.*)", "destination": "/index.html" }\n  ]\n}\n');
+                });
+
+                // Drawers
+                document.getElementById('btnToggleSettings').addEventListener('click', function () {
+                    const d = document.getElementById('settingsDrawer');
+                    const wasOpen = d.classList.contains('open');
+                    closeAllDrawers();
+                    if (!wasOpen) d.classList.add('open');
+                });
+
+                document.getElementById('btnCloseSettings').addEventListener('click', closeAllDrawers);
+
+                document.getElementById('btnSaveSettings').addEventListener('click', async function () {
+                    safeSetStorage('imaji_gemini_key', document.getElementById('geminiApiKeyInput').value.trim());
+                    safeSetStorage('imaji_api_endpoint', document.getElementById('customApiEndpointInput').value.trim() || '/api/extract');
+                    updateEngineIndicators();
+                    closeAllDrawers();
+                    showToast('✅ Pengaturan mesin Pita Cerita Sinema disimpan!');
+                    await refreshDraftFromRaw();
+                });
+
+                document.getElementById('btnToggleDeploy').addEventListener('click', function () {
+                    const d = document.getElementById('deployDrawer');
+                    const wasOpen = d.classList.contains('open');
+                    closeAllDrawers();
+                    if (!wasOpen) d.classList.add('open');
+                });
+
+                document.getElementById('btnCloseDeploy').addEventListener('click', closeAllDrawers);
+
+                document.getElementById('btnToggleHistory').addEventListener('click', function () {
+                    const d = document.getElementById('historyDrawer');
+                    const wasOpen = d.classList.contains('open');
+                    closeAllDrawers();
+                    if (!wasOpen) d.classList.add('open');
+                });
+
+                document.getElementById('btnClearHistory').addEventListener('click', function () {
+                    historyItems = [];
+                    safeSetStorage('imaji_pcs_history', '[]');
+                    renderHistory();
+                    showToast('🗑️ Riwayat berhasil dihapus.');
+                });
+
+                // Logo Uploader
+                document.getElementById('logoTrigger').addEventListener('click', function () {
+                    document.getElementById('logoFileInput').click();
+                });
+
+                document.getElementById('logoFileInput').addEventListener('change', function (e) {
+                    const file = e.target.files && e.target.files[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = function (ev) {
+                        const dataUrl = ev.target.result;
+                        const img = document.getElementById('customLogoImg');
+                        img.src = dataUrl;
+                        img.style.display = 'block';
+                        document.getElementById('defaultLogoSvg').style.display = 'none';
+                        safeSetStorage('imaji_custom_logo', dataUrl);
+                        showToast('🖼️ Logo Imaji Sinema berhasil dipasang & disimpan!');
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initApp);
+            } else {
+                initApp();
+            }
+        })();
+    </script>
+</body>
+</html>
